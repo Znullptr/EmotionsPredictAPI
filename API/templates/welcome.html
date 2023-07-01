@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to My Emotions Predict API</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+            .header {
+        background-color: lightblue;
+        padding:20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header img {
+        margin: 10px;
+        width: 150px;
+        height: auto;
+    }
+
+    p{
+        padding: 10px ;
+    }
+</style>
+</head>
+<body>
+    <div class="header">
+        <img src="{% static 'api/images/phyton-django.jpg' %}" alt="Image 1">
+        <img src="{% static 'api/images/machine-learning.jpg' %}" alt="Image 2">
+        <img src="{% static 'api/images/deploy-machine-learning-with-django.png' %}" alt="Image 3">
+    </div>
+    <h1>Welcome to My Emotions Predict API</h1>
+    <p>This API makes emotion prediction from audio speech easier!</p>
+    <p>It is based on the RADVESS dataset, which contains a collection of emotional speech recordings.</p>
+    <p>Using advanced machine learning techniques, this API can analyze audio recordings and predict the corresponding emotions.</p>
+    <p>It is built with Django and follows the principles of a RESTful API.</p>
+    <p>The API is free to use and can be integrated into your applications to enhance emotion analysis capabilities.</p>
+    <p>For more information and to access the API, please click the link below:</p>
+        <p>
+        &#x1F447;&#x1F447;&#x1F447; <!-- Unicode characters for finger pointing emojis -->
+        &#x1F447;&#x1F447;&#x1F447; <!-- Unicode characters for finger pointing emojis -->
+    </p>
+ <a href="{{ api_url }}"> API</a>
+</body>
+</html>
