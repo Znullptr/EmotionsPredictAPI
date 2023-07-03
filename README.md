@@ -36,7 +36,7 @@ Next steps for this project,
 
 i built a Django REST API to detect emotion and was deployed on render under this URL:https://emotionpredict.onrender.com .    
 
-Afterwards, I would like to be use this api to build system that can recognize emotion in real time and then calculate degree of affection such as love, truthfulness, and friendship of the person you are talking to.
+Afterwards, I would like to use this api to build system that can recognize emotion in real time and then calculate degree of affection such as love, truthfulness, and friendship of the person you are talking to.
 
 # Technologies Used  
 
