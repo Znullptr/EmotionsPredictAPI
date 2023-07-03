@@ -16,14 +16,14 @@ See **Saved_Models/prediction_model.ipynb**
 1)	Loaded audio files, created visualizations, conducted feature extraction (mfcc features extraction and used statistics values to describe the mfcc matrix like mean , std and max ) resulting into dataframe (see **Saved_Models/audio.csv**)
    
 2)	Built SVM Model with cross validation with 6 V-folds and grid search to tune the hyperparameters of the model,  Obtained an accuracy score of 80%.
-   - *SVM Model Confusion Matrix*
+   - *SVM Model Confusion Matrix:*
      
 <p align="center">
   <img width="600" height="500" src="https://github.com/Znullptr/EmotionsPredictAPI/blob/main/Images_Uploads/SVM_Confusion_Matrix.png">
 </p>  
 
 3)	Implemented inital 1D CNN Model. Obtained an accuracy score of 61% with the model having difficulty classifying angry, fear , sad and disgust.
-   - *CNN Model Confusion Matrix*
+   - *CNN Model Confusion Matrix:*
 
 <p align="center">
   <img width="600" height="500" src="https://github.com/Znullptr/EmotionsPredictAPI/blob/main/Images_Uploads/CNN_Confusion_Matrix.png">
