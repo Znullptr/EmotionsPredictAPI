@@ -28,7 +28,7 @@ See **Saved_Models/prediction_model.ipynb**
 
 ## Limitations  
 
-Limitations include not using feature selection to reduce the dimensionality of my augmented CNN which may have improved learning performance and i didn't use cross-validation to tune my hyperparameters like i did with . Another limitation included using minimal data, the RAVDESS Dataset has only 1,440 files which may be why there was overfitting of the data. Additional datasets could have been utilized.
+Limitations include not using feature selection to reduce the dimensionality of my augmented CNN which may have improved learning performance and i didn't use cross-validation to tune my hyperparameters like i did with SVM. Another limitation included using minimal data, the RAVDESS Dataset has only 1,440 files which may be why there was overfitting of the data. Additional datasets could have been utilized.
 
 ## Next Steps
 
