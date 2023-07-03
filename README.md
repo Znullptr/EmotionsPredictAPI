@@ -16,15 +16,29 @@ See **Saved_Models/prediction_model.ipynb**
 1)	Loaded audio files, created visualizations, conducted feature extraction (mfcc features extraction and used statistics values to describe the mfcc matrix like mean , std and max ) resulting into dataframe (see **Saved_Models/audio.csv**)
    
 2)	Built SVM Model with cross validation with 6 V-folds and grid search to tune the hyperparameters of the model,  Obtained an accuracy score of 80%.
+   - *SVM Model*
+     
+<p align="center">
+  <img width="600" height="500" src="https://github.com/Znullptr/EmotionsPredictAPI/blob/main/Images_Uploads/SVM_Confusion_Matrix.png">
+</p>  
 
-3)	Implemented inital 1D CNN Model. Obtained an accuracy score of 61% with the model having difficulty classifying calm, surprised, angry, and digust.
+3)	Implemented inital 1D CNN Model. Obtained an accuracy score of 61% with the model having difficulty classifying angry, fear , sad and disgust.
+   - *CNN Model*
+
+<p align="center">
+  <img width="600" height="500" src="https://github.com/Znullptr/EmotionsPredictAPI/blob/main/Images_Uploads/CNN_Confusion_Matrix.png">
+</p>  
 
 4)  Plot the learning curve for both the CNN and SVM models and the validation score was significatlly better in SVM while the CNN was not learning as 
     well as SVM with the same training examples used to feed them and has caused an overfitting of data.
+
+<p align="center">
+  <img width="800" height="500" src="https://github.com/Znullptr/EmotionsPredictAPI/blob/main/Images_Uploads/Learning_Curve_CNN_VS_SVM.png">
+</p>  
     
 5)  I decided then to pickle the SVM model because of its higher accuracy and better learning curve to use it in my api.
    
-6)	See **Test_Uploads** for all my test sample audio files i used to test.
+7)	See **Test_Uploads** for all my test sample audio files i used to test.
 
 ## Limitations  
 
