@@ -58,7 +58,7 @@ Django: Python web framework for building the API.
 
 Django REST Framework: Extension for building RESTful APIs with Django.  
 
-Tensorflow && sikit-learn: Machine learning library for training the loan approval prediction model.  
+Tensorflow && sikit-learn: Machine learning library for training the emotions prediction model.  
 
 Render: Cloud platform for deploying the API. 
 
