@@ -15,14 +15,14 @@ See **Saved_Models/prediction_model.ipynb**
 
 1)	Loaded audio files, created visualizations, conducted feature extraction (mfcc features extraction and used statistics values to describe the mfcc matrix like mean , std and max ) resulting into dataframe (see **Saved_Models/audio.csv**)
    
-2)	Built SVM Model with cross validation with 6 V-folds and grid search to tune the hyperparameters of the model,  Obtained an accuracy score of 80%.
+2)	Built SVM Model with cross validation with 6 V-folds and grid search to tune the hyperparameters of the model,  Obtained an accuracy score of 81%.
    - *SVM Model Confusion Matrix:*
      
 <p align="center">
   <img width="600" height="500" src="https://github.com/Znullptr/EmotionsPredictAPI/blob/main/Images_Uploads/SVM_Confusion_Matrix.png">
 </p>  
 
-3)	Implemented inital 1D CNN Model. Obtained an accuracy score of 61% with the model having difficulty classifying angry, fear , sad and disgust.
+3)	Implemented inital 1D CNN Model. Obtained an accuracy score of 72% with the model having difficulty classifying angry, fear , sad and disgust.
    - *CNN Model Confusion Matrix:*
 
 <p align="center">
@@ -30,7 +30,7 @@ See **Saved_Models/prediction_model.ipynb**
 </p>  
 
 4)  Plot the learning curve for both the CNN and SVM models and the validation score was significatlly better in SVM while the CNN was not learning as 
-    well as SVM with the same training examples used to feed them and has caused an overfitting of data.
+    well as SVM with the same training examples used to feed them.
 
 <p align="center">
   <img width="800" height="500" src="https://github.com/Znullptr/EmotionsPredictAPI/blob/main/Images_Uploads/Learning_Curve_CNN_VS_SVM.png">
@@ -42,7 +42,7 @@ See **Saved_Models/prediction_model.ipynb**
 
 ## Limitations  
 
-Limitations include not using feature selection to reduce the dimensionality of my augmented CNN which may have improved learning performance and i didn't use cross-validation to tune my hyperparameters like i did with SVM. Another limitation included using minimal data, the RAVDESS Dataset has only 1,440 files which may be why there was overfitting of the data. Additional datasets could have been utilized.
+Limitations include not using data augmentation techniques which may have improved learning performance of CNN and i didn't use cross-validation to tune my hyperparameters like with SVM. Another limitation included using minimal data, the RAVDESS Dataset has only 1,440 files which may be why there was overfitting of the data. Additional datasets could have been utilized.
 
 ## Next Steps
 
