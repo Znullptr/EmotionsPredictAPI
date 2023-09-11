@@ -7,41 +7,51 @@ from .serializers import AudioSerializers
 import librosa
 import joblib
 import numpy as np
-import pandas as pd
+from keras.models import load_model
 
 
-def extract_mfcc_features(file_path):
+# Function to extract audio features
+def extract_features(data, sr, hop_length=512, win_length=2048):
+    mfcc = librosa.feature.mfcc(y=data, sr=sr, hop_length=hop_length, win_length=win_length)
+    chroma = librosa.feature.chroma_stft(y=data, sr=sr, hop_length=hop_length, win_length=win_length)
+    sc = librosa.feature.spectral_contrast(y=data, sr=sr, hop_length=hop_length, win_length=win_length)
+    zre = librosa.feature.zero_crossing_rate(y=data, hop_length=hop_length, frame_length=win_length)
+    rms = librosa.feature.rms(y=data, hop_length=hop_length, frame_length=win_length)
+    result = np.vstack((mfcc, chroma, sc, zre, rms))
+    return result.T
+
+
+def to_statistical(feature):
+    # Compute statistics (mean, standard deviation, maximum and minimum) along the frames
+    mfcc_stats = np.hstack(
+        (np.mean(feature, axis=0), np.std(feature, axis=0), np.max(feature, axis=0), np.min(feature, axis=0)))
+    return mfcc_stats
+
+
+def get_features(path, duration=2.5, offset=0.6):
     try:
-        audio, sr = librosa.load(file_path)
-        mfcc = librosa.feature.mfcc(y=audio, sr=sr)
-        return mfcc.T
+        data, sr = librosa.load(path, duration=duration, offset=offset)
+        aud = extract_features(data, sr)
+        audio = [np.array(to_statistical(aud))]
+        return audio
     except Exception:
         error_message = 'Unsupported audio format. Please provide a valid audio file such WAV,MP3,AAC'
-        os.remove(file_path)
+        os.remove(path)
         raise ValueError(error_message)
 
 
-def predict_emotion(mfcc_features, gender):
-    mdl = joblib.load('API/emotion_predict_model.pkl')
+def predict_emotion(path):
+    mdl = load_model('API/model')
     scaler = joblib.load('API/scaler.pkl')
-    lb = joblib.load('API/emotion_label_encoder.pkl')
-    gender = gender.replace('M', '1').replace('F', '0')
-    mfcc_stats = np.hstack(
-        (np.mean(mfcc_features, axis=0), np.std(mfcc_features, axis=0), np.max(mfcc_features, axis=0)))
-    # Create a dictionary with the aggregated statistics
-    mfcc_dict = {f'mfcc{j}_mean': mfcc_stats[j] for j in range(mfcc_stats.shape[0] // 3)}
-    mfcc_dict.update(
-        {f'mfcc{j}_std': mfcc_stats[j + mfcc_stats.shape[0] // 3] for j in range(mfcc_stats.shape[0] // 3)})
-    mfcc_dict.update(
-        {f'mfcc{j}_max': mfcc_stats[j + 2 * mfcc_stats.shape[0] // 3] for j in range(mfcc_stats.shape[0] // 3)})
-    df_processed = pd.DataFrame.from_records([mfcc_dict])
-    df_processed.insert(0, 'gender', gender)
-
+    lb = joblib.load('API/label_encoder.pkl')
+    features = get_features(path)
     # Scale the data using the loaded scaler
-    scaled_data = scaler.transform(df_processed)
+    scaled_data = scaler.transform(features)
 
     # Predict emotion using the model
-    prediction = mdl.predict(scaled_data)
+    predictions = mdl.predict(scaled_data)
+    y_pred = predictions.argmax(axis=1)
+    prediction = y_pred.astype(int).flatten()
     predicted_emotion = lb.inverse_transform(prediction)
     # Assuming the output of the model is one-hot encoded, find the emotion with the highest probability
     # and convert it back to the original label
@@ -50,9 +60,7 @@ def predict_emotion(mfcc_features, gender):
 
 def perform_prediction(validated_data):
     file_path = 'API/audio_files/' + validated_data['audio_file'].name
-    gender = validated_data['gender']
-    mfcc_features = extract_mfcc_features(file_path)
-    emotion = predict_emotion(mfcc_features, gender)
+    emotion = predict_emotion(file_path)
     os.remove(file_path)
     return emotion
 
@@ -74,12 +82,3 @@ class AudiosView(viewsets.ModelViewSet):
             error_message = str(e)
             return Response({'message': error_message}, status=400)
 
-
-def welcome(request):
-    api_url = "/api/"
-
-    context = {
-        'api_url': api_url
-    }
-
-    return render(request, 'welcome.html', context)

@@ -5,6 +5,5 @@ from . import views
 router = routers.DefaultRouter()
 router.register('API', views.AudiosView)
 urlpatterns = [
-    path('api/', include(router.urls)),
-    path('', views.welcome, name='Welcome'),
+    path('', include(router.urls))
 ]
